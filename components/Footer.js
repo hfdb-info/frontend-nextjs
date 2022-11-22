@@ -1,3 +1,4 @@
+//Web page footer
 const Footer = () => {
     return (
       <footer>

@@ -39,10 +39,16 @@ footer {
     border-top: 1px solid #eaeaea;
   }
 
-p{
+.ItemDescription p{
     font-size: 24pt;
     color:green
   }
+
+/*TODO: find proper class demonination for next/Link */
+.ItemDescription :any-link{
+  color:blue;
+  text-decoration: underline;
+}
 
 
 .SearchBar{
@@ -77,4 +83,8 @@ p{
   margin: 10px;
   padding: 20px;
   border: 2px solid;
+}
+
+.About p{
+  font-weight: bolder;
 }

@@ -3,17 +3,21 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 export default function ItemPage() {
-    const router = useRouter()
-    const {sku} = router.query
+  //grab sku from url: (.../sku/)
+  const router = useRouter()
+  const {sku} = router.query
+
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
   
-
+  //fetch item details on page load, requires router 
+  //in dependency array
   useEffect(() => {
 
+    //set page loading (should be pretty fast but just in case)
     setLoading(true)
-    console.log(sku)
+    //console.log(sku)
     fetch(`http://localhost:8080/grabProductDetails/${sku}`)
       .then((res) => res.json())
       .then((data) => {
@@ -34,7 +38,7 @@ export default function ItemPage() {
         {/*When making Links, you must include https:// or it will route to the current url/{href} */}
       </div>
       
-      <div>
+      <div className='ItemDescription'>
         <Link href = {`https://www.harborfreight.com/${data.canonicalURL}`}>LINK TO PRODUCT</Link>
         <p>{"$"+data.price/100}</p>
       </div>

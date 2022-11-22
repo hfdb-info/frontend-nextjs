@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+//Top navbar
 const Navbar = () => {
   return (
     <nav>
