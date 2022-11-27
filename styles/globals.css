@@ -117,3 +117,13 @@ footer {
 .About p{
   font-weight: bolder;
 }
+
+.homePage h2{
+  color:green;
+}
+
+.homePage a{
+  font-weight: bold;
+  text-decoration: underline;
+  color:blue;
+}
