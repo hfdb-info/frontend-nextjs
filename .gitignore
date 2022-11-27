@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
 
 # Exclude API .jar file
-hfdb-api-0.0.1-SNAPSHOT*
+hfdb-api*.jar
