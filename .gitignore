@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Exclude API .jar file
+hfdb-api-0.0.1-SNAPSHOT*
