@@ -3,7 +3,7 @@ First, clone the repository and open the directory in GitHub Desktop. Enter the 
 
 ## Running the Development Environment
 Assuming the next install completed,
-and all the necessary postgres configuration is setup, run the ```HFDB-API``` instance, then in the ```frontendext-nextjs``` terminal, type ```npm run dev``` to start the development environment. This will start the front end on port 3000. Do note that the API can only tag CORS patterns originating from IP addresses as acceptable. In order for the front end to function correctly when making API calls, you must navigate to it using the IP address provided to the API (ex. ```http://127.0.0.1:3000/``` works, but ```http://localhost:3000``` does not). Once that is done, you should end up on the landing page.
+and all the necessary postgres configuration is setup, run the ```HFDB-API``` instance, then in the ```frontendext-nextjs``` terminal, type ```npm run dev``` to start the development environment. This will start the front end on port 3000. Do note that the API can only tag CORS patterns originating from IP addresses as acceptable. In order for the front end to function correctly when making API calls, you must navigate to it using the IP address provided to the API. For example: ```http://127.0.0.1:3000``` works, but ```http://localhost:3000``` does not. Once that is done, you should end up on the landing page.
 
 ## Making edits in React
 Once the page is running properly, you can edit on your site instance, and it will automatically rerender the page when you save any file relating to it. If it doesn't rerender you may need to save *all* the related files.
