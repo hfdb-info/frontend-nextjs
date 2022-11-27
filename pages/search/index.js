@@ -1,51 +1,88 @@
-import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useState, useRef, useEffect} from "react";
 //TODO: figure out grid, SearchBar, styling
-//TODO: add pagination to page when there are more than 16 search results
+//TODO: add pagination to page when there are more search results
     
-  export default function SearchResults(){
-    const [searchData, setSearchData] = useState([])
-    const [searchTerm, setSearchTerm] = useState("");
+  export default function Search(){
+    //data for the search input
+    const searchTerm = useRef("");
 
-    
+    //data for processing
+    const [items, setItems] = useState([])
+    let currentItems = []
+    const [loading, setLoading] = useState(false)
 
-      const handleSubmit = (event) =>{
+    const handleSubmit = (event) =>{
+
+      setLoading(true)
         event.preventDefault()
-        setSearchTerm(event.target.value)
-      fetch(`http://localhost:8080/nameSearch/${searchTerm}/-1/-1`)
+        let str = searchTerm.current.value
+        if(str == ""){
+          setLoading(false)
+          return
+        }
+        console.log(`searchTerm: ${str}`)
+        fetch(`http://localhost:8080/nameSearch/${str}/-1/-1`)
           .then((res) => res.json())
-          .then((searchData) => {
-            console.log(searchData)
-            setSearchData(searchData)
+          .then((itemData) => {
+            currentItems = itemData
+            for(let i=0; i<currentItems.length && i<100; i++){
+              let s = currentItems[i].sku
+              fetch(`http://localhost:8080/grabProductDetails/${s}`)
+              .then((res) => res.json())
+              .then((data) => currentItems[i] = data)
+          }
           })
-      setSearchTerm("")
-      console.log(searchData)
-    }
-    const handleChange = (event) => {
-      event.preventDefault()
-      setSearchTerm(event.target.value)
-    }
-
-
-    return <div className="SearchPage">
-      <form className="SearchBar">
-        <input
-        type = "text"
-        value={searchTerm}
-        onSubmit = {(event) => handleSubmit(event)}
-        placeholder = "Search Database"
-        onChange={(event) => handleChange(event)}
-        />
-        <button 
-        type = "submit" 
-        onClick = {(event) => handleSubmit(event)}
+          .then(() => {
+            console.log(currentItems)
+            //wait 1.5 seconds, then set "items" to the fetched datat from grabProductDetails
+            //TODO: add proper state management
+            setTimeout(()=>{
+              setItems(currentItems.slice(0,100))
+              console.log(items)
+            },1500)
+            setLoading(false)
+          })
+            
         
-        >Search</button>
-      </form>
-      <ul className="GridContainer">
-          {searchData.map((element, index) => (
-            <div className="Card" key = {index}>{element.sku}</div>
-          ))}
-      </ul>
+        
+    }
+
+    if(loading){
+      return <h1>Loading...</h1>
+    }
+    
+
+    return  <div className="SearchPage">
+                <form className="SearchBar">
+                  <input
+                  type = "text"
+                  ref={searchTerm}
+                  defaultValue = ""
+                  onSubmit = {(event) => handleSubmit(event)}
+                  placeholder = "Search Database:"
+                  />
+                  <button 
+                  type = "submit" 
+                  onClick = {(event) => handleSubmit(event)}
+                  
+                  >Search</button> 
+                </form>
+                
+                <ul className="GridContainer">
+                  {items.map(item => (
+                      <div key={item.sku} className="Card">
+                          <img 
+                          src={item.imgURL}
+                          width = "247"
+                          height = "250"
+                          />
+                          <Link className = "itemPageLink" href = {`/search/${item.sku}`}>{item.name}</Link>
+                          <p>{ item.price ? "Price: $"+item.price/100 : ""}</p>
+                      </div>
+                  ))}
+                  
+              </ul>
     </div>
 }
 
