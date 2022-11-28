@@ -5,7 +5,7 @@ export default function AboutPage(){
         <div className="About">
             <center><h1>About</h1>
             <p>We are a small group of six people who created this project for our COSC 4336 (Software Development) class
-                at the University of Texas at Tyler. The website was made using Postgres, Spring for API hosted using Java, and Next.js with JavaScript.
+                at the University of Texas at Tyler. The website was made using Postgres, Spring, and Next.js.
             </p><br></br>
             <h2>Members</h2>
             <h3>Back End Team</h3>
