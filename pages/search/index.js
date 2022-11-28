@@ -22,13 +22,13 @@ import { useState, useRef, useEffect} from "react";
           return
         }
         console.log(`searchTerm: ${str}`)
-        fetch(`http://localhost:8080/nameSearch/${str}/-1/-1`)
+        fetch(`http://127.0.0.1:8080/nameSearch/${str}/-1/-1`)
           .then((res) => res.json())
           .then((itemData) => {
             currentItems = itemData
             for(let i=0; i<currentItems.length && i<100; i++){
               let s = currentItems[i].sku
-              fetch(`http://localhost:8080/grabProductDetails/${s}`)
+              fetch(`http://127.0.0.1:8080/grabProductDetails/${s}`)
               .then((res) => res.json())
               .then((data) => currentItems[i] = data)
           }
@@ -40,8 +40,9 @@ import { useState, useRef, useEffect} from "react";
             setTimeout(()=>{
               setItems(currentItems.slice(0,100))
               console.log(items)
-            },1500)
-            setLoading(false)
+              setLoading(false)
+            },5000)
+            
           })
             
         
@@ -51,6 +52,8 @@ import { useState, useRef, useEffect} from "react";
     if(loading){
       return <h1>Loading...</h1>
     }
+    
+
     
 
     return  <div className="SearchPage">
