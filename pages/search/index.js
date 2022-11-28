@@ -22,13 +22,13 @@ import { useState, useRef, useEffect} from "react";
           return
         }
         console.log(`searchTerm: ${str}`)
-        fetch(`http://127.0.0.1:8080/nameSearch/${str}/-1/-1`)
+        fetch(`http://hfdb.duckdns.org:8080/nameSearch/${str}/-1/-1`)
           .then((res) => res.json())
           .then((itemData) => {
             currentItems = itemData
             for(let i=0; i<currentItems.length && i<100; i++){
               let s = currentItems[i].sku
-              fetch(`http://127.0.0.1:8080/grabProductDetails/${s}`)
+              fetch(`http://hfdb.duckdns.org:8080/grabProductDetails/${s}`)
               .then((res) => res.json())
               .then((data) => currentItems[i] = data)
           }
