@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { useState, useRef, useEffect} from "react";
-//TODO: figure out grid, SearchBar, styling
-//TODO: add pagination to page when there are more search results
     
   export default function Search(){
     //data for the search input
@@ -12,6 +10,7 @@ import { useState, useRef, useEffect} from "react";
     let currentItems = []
     const [loading, setLoading] = useState(false)
 
+    //called when onSubmit (search button pressed or enter is pressed)
     const handleSubmit = (event) =>{
 
       setLoading(true)
@@ -35,13 +34,12 @@ import { useState, useRef, useEffect} from "react";
           })
           .then(() => {
             console.log(currentItems)
-            //wait 1.5 seconds, then set "items" to the fetched datat from grabProductDetails
+            //wait 1.5 seconds, then set "items" to the fetched data from grabProductDetails
             //TODO: add proper state management
             setTimeout(()=>{
               setItems(currentItems.slice(0,100))
-              console.log(items)
               setLoading(false)
-            },5000)
+            },2000)
             
           })
             
@@ -49,13 +47,11 @@ import { useState, useRef, useEffect} from "react";
         
     }
 
-    if(loading){
+    while(loading){
       return <h1>Loading...</h1>
     }
-    
 
-    
-
+    //page layout
     return  <div className="SearchPage">
                 <form className="SearchBar">
                   <input
