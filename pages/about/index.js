@@ -1,5 +1,4 @@
-
-//JSX for the About page
+// About Page for Harbor Freight Database
 export default function AboutPage(){
     return (
         <div className="About">
